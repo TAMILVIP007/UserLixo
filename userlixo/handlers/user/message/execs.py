@@ -43,18 +43,14 @@ async def execs(c, m):
             return await m.reply(text)
 
     text = lang.executed_cmd
-    output = strio.getvalue()
-    if output:
+    if output := strio.getvalue():
         if len(output) > 4096:
             with open("output.txt", "w") as f:
                 f.write(output)
             await m.reply_document("output.txt", quote=True)
             return os.remove("output.txt")
         output = html.escape(output)  # escape html special chars
-        text = ""
-        for line in output.splitlines():
-            text += f"<code>{line}</code>\n"
-
+        text = "".join(f"<code>{line}</code>\n" for line in output.splitlines())
         if cmd == "exec":
             return await act(text)
         await m.reply(text)

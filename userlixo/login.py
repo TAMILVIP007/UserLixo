@@ -125,11 +125,10 @@ async def main():
         login_bot = c == "n"
 
     print("\n[bold green]- Logging in the assistant bot...")
-    if login_user:
-        if os.path.exists("bot.session"):
-            os.remove("bot.session")
+    if login_user and os.path.exists("bot.session"):
+        os.remove("bot.session")
     if "BOT_TOKEN" not in os.environ:
-        text = f"\n┌ [light_sea_green]BOT_TOKEN[/light_sea_green]"
+        text = '\n┌ [light_sea_green]BOT_TOKEN[/light_sea_green]'
         print(text)
 
         try:
@@ -138,7 +137,7 @@ async def main():
             print("[red1]Operation cancelled by user")
             exit()
         if not user_value:
-            print(f"[red1]BOT_TOKEN is required, cannot be empty.")
+            print('[red1]BOT_TOKEN is required, cannot be empty.')
             exit()
         os.environ["BOT_TOKEN"] = user_value
 

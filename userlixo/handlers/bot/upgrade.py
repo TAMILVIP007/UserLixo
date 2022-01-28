@@ -24,7 +24,7 @@ async def on_upgrade_u(c, u):
     except FileNotFoundError:
         return await act(lang.upgrade_error_not_git, keyb)
 
-    stdout, process = await shell_exec(f"git fetch && git status -uno")
+    stdout, process = await shell_exec('git fetch && git status -uno')
 
     if process.returncode != 0:
         await act(
@@ -67,13 +67,7 @@ async def on_upgrade_u(c, u):
 
     await Config.filter(key="restarting_alert").delete()
     message_id = u.inline_message_id if is_inline else msg.message_id
-    chat_id = (
-        "inline"
-        if is_inline
-        else msg.chat.username
-        if msg.chat.username
-        else msg.chat.id
-    )
+    chat_id = "inline" if is_inline else msg.chat.username or msg.chat.id
     await Config.create(
         **{
             "key": "restarting_alert",

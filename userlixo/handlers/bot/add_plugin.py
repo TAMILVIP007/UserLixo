@@ -63,7 +63,7 @@ async def on_add_plugin_u(c, u):
             await msg.reply(lang.plugin_too_big, quote=True)
             continue
         break
-    filename = await msg.download(f"cache/")
+    filename = await msg.download('cache/')
     filename = os.path.relpath(filename)
     plugin = read_plugin_info(filename)
 
@@ -103,14 +103,11 @@ async def on_confirm_plugin(c, cq):
     plugin = read_plugin_info(cache_filename)
     new_notation = re.sub("\.py$", "", os.path.relpath(new_filename)).replace("/", ".")
 
-    requirements = plugin.get("requirements")
-    if requirements:
+    if requirements := plugin.get("requirements"):
         DGRAY = 'echo -e "\033[1;30m"'
         RESET = 'echo -e "\033[0m"'
         req_list = requirements.split()
-        req_text = ""
-        for r in req_list[:-1]:
-            req_text += f" ├ <code>{r}</code>\n"
+        req_text = "".join(f" ├ <code>{r}</code>\n" for r in req_list[:-1])
         req_text += f" └ <code>{req_list[-1]}</code>"
         text = lang.installing_plugin_requirements
         text.escape_html = False

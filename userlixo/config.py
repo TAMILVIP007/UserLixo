@@ -85,7 +85,7 @@ async def load_env():
         if value_on_env != "":
             text += f" [deep_sky_blue4](default: {value_on_env})[/]"
         elif env_key in required_vars:
-            text += f" [yellow](required)[/]"
+            text += ' [yellow](required)[/]'
         text += f"\n├ [medium_purple4 italic]{env_info}[/]"
         print(text)
 

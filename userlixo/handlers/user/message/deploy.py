@@ -16,7 +16,7 @@ async def on_deploy(c, m):
     msg = await act(lang.deploying_on_heroku)
     await Config.filter(key="restarting_alert").delete()
     message_id = msg.message_id
-    chat_id = msg.chat.username if msg.chat.username else msg.chat.id
+    chat_id = msg.chat.username or msg.chat.id
     await Config.create(
         **{
             "key": "restarting_alert",

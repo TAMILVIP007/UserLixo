@@ -62,8 +62,8 @@ async def alert_startup():
         )
     )[0]
 
-    user_plugins = len([x for x in plugins["user"]])
-    bot_plugins = len([x for x in plugins["bot"]])
+    user_plugins = len(list(plugins["user"]))
+    bot_plugins = len(list(plugins["bot"]))
     plugins_total = user_plugins + bot_plugins
     append_plugins = f"\n├ 👤 {user_plugins}\n└ 👾 {bot_plugins}" if plugins_total else ""
 
